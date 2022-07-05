@@ -74,29 +74,44 @@ void TestVector()
 
 int main()
 {
-	TestVector2();
-	TestVector();/**/
+	/*TestVector2();
+	TestVector();*/
 
-	/*Vector2<int> v;
+	std::vector<int> v2;
+	v2[0] = 0;
+
+	Vector2<int> v;
 	for (int i = 0; i < 20; i++)
 	{
 		v.push(i);
 	}
+
 	for (int i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << std::endl;
 	}
 	std::cout << std::endl;
+
 	v.pop();
 	for (int i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << std::endl;
 	}
 	std::cout << std::endl;
+
 	v.erase(0);
 	for (int i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << std::endl;
-	}*/
+	}
+	std::cout << std::endl;
+
+	v.insert(0, 5);
+	for (int i = 0; i < v.size(); i++)
+	{
+		std::cout << v[i] << std::endl;
+	}
+	std::cout << std::endl;
+	/**/
 	return 0;
 }
