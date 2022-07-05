@@ -39,26 +39,29 @@ public:
 			arr = temp;
 		}
 		memmove(
-			&arr[index + 1], &arr[index],
+			arr + index + 1,
+			arr + index,
 			sizeof(OBJECT_TYPE) * (currentSize++ - index)
 		);
 		arr[index] = data;
 	}
 
-	void erase(const uint64_t index)
+	void erase(const size_t index)
 	{
 		memmove(
-			arr + index, arr + index + 1,
-			(--currentSize - index) * sizeof(OBJECT_TYPE)
+			arr + index,
+			arr + index + 1,
+			sizeof(OBJECT_TYPE) * (--currentSize - index)
 		);
 	}
 
 	void clear() { currentSize = 0; }
-	uint64_t size() const { return currentSize; }
-	OBJECT_TYPE operator[](const uint64_t index) const { return arr[index]; }
+	size_t size() const { return currentSize; }
+	OBJECT_TYPE operator[](const size_t index) const { return arr[index]; }
+	OBJECT_TYPE& operator[](const size_t index) { return arr[index]; }
 
 private:
-	uint64_t currentSize;
-	uint64_t minimumSize;
+	size_t currentSize;
+	size_t minimumSize;
 	OBJECT_TYPE* arr = nullptr;
 };

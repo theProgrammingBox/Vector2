@@ -12,7 +12,7 @@ void TestVector2()
 		Vector2<int> v;
 
 		auto tpStart = std::chrono::system_clock::now();
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 50000; i++)
 		{
 			v.push(i);
 		}
@@ -23,8 +23,8 @@ void TestVector2()
 		tpStart = std::chrono::system_clock::now();
 		while (v.size() != 0)
 		{
-			//v.pop();
-			v.erase(0);
+			v.pop();
+			//v.erase(0);
 			//v.erase(v.size() - 1);
 		}
 		duration = std::chrono::system_clock::now() - tpStart;
@@ -48,7 +48,7 @@ void TestVector()
 		std::vector<int> v;
 
 		auto tpStart = std::chrono::system_clock::now();
-		for (int i = 0; i < 10000; i++)
+		for (int i = 0; i < 50000; i++)
 		{
 			v.push_back(i);
 		}
@@ -59,8 +59,8 @@ void TestVector()
 		tpStart = std::chrono::system_clock::now();
 		while (v.size() != 0)
 		{
-			//v.pop_back();
-			v.erase(v.begin());
+			v.pop_back();
+			//v.erase(v.begin());
 			//v.erase(v.end() - 1);
 		}
 		duration = std::chrono::system_clock::now() - tpStart;
@@ -74,13 +74,10 @@ void TestVector()
 
 int main()
 {
-	/*TestVector2();
-	TestVector();*/
+	TestVector2();
+	TestVector();/**/
 
-	std::vector<int> v2;
-	v2[0] = 0;
-
-	Vector2<int> v;
+	/*Vector2<int> v;
 	for (int i = 0; i < 20; i++)
 	{
 		v.push(i);
@@ -99,7 +96,7 @@ int main()
 	}
 	std::cout << std::endl;
 
-	v.erase(0);
+	v.erase(1);
 	for (int i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << std::endl;
@@ -112,6 +109,13 @@ int main()
 		std::cout << v[i] << std::endl;
 	}
 	std::cout << std::endl;
-	/**/
+
+	v[8] = 44;
+	for (int i = 0; i < v.size(); i++)
+	{
+		std::cout << v[i] << std::endl;
+	}
+	std::cout << std::endl;
+	*/
 	return 0;
 }
