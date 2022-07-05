@@ -3,6 +3,10 @@
 
 template <typename OBJECT_TYPE> class Vector2
 {
+private:
+	size_t currentSize;
+	size_t minimumSize;
+	OBJECT_TYPE* arr = nullptr;
 public:
 	Vector2()
 	{
@@ -28,7 +32,7 @@ public:
 
 	void pop() { --currentSize; }
 
-	void insert(const OBJECT_TYPE data, const int index)
+	void insert(const OBJECT_TYPE data, OBJECT_TYPE* iterator)
 	{
 		if (currentSize == minimumSize)
 		{
@@ -39,19 +43,19 @@ public:
 			arr = temp;
 		}
 		memmove(
-			arr + index + 1,
-			arr + index,
-			sizeof(OBJECT_TYPE) * (currentSize++ - index)
+			iterator + 1,
+			iterator,
+			sizeof(OBJECT_TYPE) * (arr + currentSize++ - iterator)
 		);
-		arr[index] = data;
+		*iterator = data;
 	}
 
-	void erase(const size_t index)
+	void erase(OBJECT_TYPE* iterator)
 	{
 		memmove(
-			arr + index,
-			arr + index + 1,
-			sizeof(OBJECT_TYPE) * (--currentSize - index)
+			iterator,
+			iterator + 1,
+			sizeof(OBJECT_TYPE) * (arr + --currentSize - iterator)
 		);
 	}
 
@@ -60,8 +64,6 @@ public:
 	OBJECT_TYPE operator[](const size_t index) const { return arr[index]; }
 	OBJECT_TYPE& operator[](const size_t index) { return arr[index]; }
 
-private:
-	size_t currentSize;
-	size_t minimumSize;
-	OBJECT_TYPE* arr = nullptr;
+	OBJECT_TYPE* begin() const { return arr; }
+	OBJECT_TYPE* end() const { return arr + currentSize; }
 };
