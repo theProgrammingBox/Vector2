@@ -4,7 +4,6 @@
 using OBJECT = std::pair<int, void*>;
 using ITERATOR = OBJECT*;
 using ITERATOR_POINTER = ITERATOR*;
-//using OBJECT = std::pair<int, ITERATOR_POINTER>;
 
 size_t currentSize;
 size_t maxSize;
@@ -61,7 +60,7 @@ void insert(const ITERATOR_POINTER iteratorPointer, const int data)
 	);
 	(*iteratorPointer)->first = data;
 	(*iteratorPointer)->second = new ITERATOR(*iteratorPointer);
-	for (ITERATOR i = arr + currentSize++ - 1; i > *iteratorPointer; i--)
+	for (ITERATOR i = arr + currentSize++; i > *iteratorPointer; i--)
 	{
 		*(ITERATOR_POINTER)i->second = i;
 	}
