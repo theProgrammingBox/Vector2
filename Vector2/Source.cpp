@@ -40,7 +40,6 @@ void push_back(const int data)
 	expand();
 	arr[currentSize].first = data;
 	arr[currentSize].second = new ITERATOR(arr + currentSize);
-	//std::cout << "push_back: " << (**(ITERATOR_POINTER)arr[currentSize].second).first << std::endl;
 	currentSize++;
 }
 
@@ -50,25 +49,6 @@ void pop()
 	{
 		delete arr[--currentSize].second;
 	}
-}
-
-void print()
-{
-	int j = currentSize;
-	for (ITERATOR i = arr + currentSize - 1; i >= arr; i--)
-	{
-		std::cout << --j << ": " << i->first << std::endl;
-	}
-	std::cout << std::endl;
-}
-
-void delete_()
-{
-	for (ITERATOR i = arr + currentSize - 1; i >= arr; i--)
-	{
-		delete i->second;
-	}
-	delete[] arr;
 }
 
 void insert(const ITERATOR_POINTER iteratorPointer, const int data)
@@ -87,6 +67,42 @@ void insert(const ITERATOR_POINTER iteratorPointer, const int data)
 	}
 }
 
+void erase(const ITERATOR_POINTER iteratorPointer)
+{
+	memmove(
+		*iteratorPointer,
+		*iteratorPointer + 1,
+		sizeof(OBJECT) * (arr + currentSize - *iteratorPointer)
+	);
+	for (ITERATOR i = arr + --currentSize - 1; i >= *iteratorPointer; i--)
+	{
+		*(ITERATOR_POINTER)i->second = i;
+	}
+	delete iteratorPointer;
+}
+
+void print()
+{
+	int j = currentSize;
+	for (ITERATOR i = arr + currentSize - 1; i >= arr; i--)
+	{
+		std::cout << --j << ": "
+			<< i->first << '\t'
+			<< (*(ITERATOR_POINTER)i->second)->first
+			<< std::endl;
+	}
+	std::cout << std::endl;
+}
+
+void delete_()
+{
+	for (ITERATOR i = arr + currentSize - 1; i >= arr; i--)
+	{
+		delete i->second;
+	}
+	delete[] arr;
+}
+
 int main()
 {
 	new_();
@@ -102,6 +118,8 @@ int main()
 	print();
 	insert((ITERATOR_POINTER)arr[0].second, 789);
 	insert((ITERATOR_POINTER)arr[4].second, 789);
+	print();
+	erase((ITERATOR_POINTER)arr[4].second);
 	print();
 	delete_();
 
